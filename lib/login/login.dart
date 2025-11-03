@@ -11,7 +11,9 @@ class _JulLoginState extends State<JulLogin> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
   bool _isPasswordVisible = false;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -20,10 +22,22 @@ class _JulLoginState extends State<JulLogin> {
     super.dispose();
   }
 
-  void _validateForm() {
+  Future<void> _handleLogin() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      await Future.delayed(const Duration(seconds: 2));
+
+      if (!mounted) return;
+
+      setState(() {
+        _isLoading = false;
+      });
+
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Form valid!')),
+        const SnackBar(content: Text('Login Berhasil!')),
       );
     }
   }
@@ -38,7 +52,8 @@ class _JulLoginState extends State<JulLogin> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.lock_outline, size: 80, color: Color.fromARGB(255, 255, 37, 157)),
+              const Icon(Icons.lock_outline,
+                  size: 80, color: Color.fromARGB(255, 255, 37, 157)),
               const SizedBox(height: 24),
               TextFormField(
                 controller: _emailController,
@@ -46,6 +61,12 @@ class _JulLoginState extends State<JulLogin> {
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Email tidak boleh kosong';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -65,11 +86,22 @@ class _JulLoginState extends State<JulLogin> {
                     },
                   ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Password tidak boleh kosong';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: _validateForm,
-                child: const Text("Login"),
+                onPressed: _isLoading ? null : _handleLogin,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 48),
+                ),
+                child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text("Login"),
               ),
             ],
           ),
