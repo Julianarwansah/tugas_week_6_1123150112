@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 21, 185)),
       ),
       debugShowCheckedModeBanner: false,
-      home: const JulLogin(), // 👈 tambahkan ini
+      home: const JulLogin(),
     );
   }
 }

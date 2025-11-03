@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_week_6_1123150112/splash_screen/splash_screen1.dart';
+
 
 class JulLogin extends StatefulWidget {
   const JulLogin({super.key});
@@ -23,24 +25,25 @@ class _JulLoginState extends State<JulLogin> {
   }
 
   Future<void> _handleLogin() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+  if (_formKey.currentState!.validate()) {
+    setState(() {
+      _isLoading = true;
+    });
 
-      await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
-      if (!mounted) return;
+    if (!mounted) return;
 
-      setState(() {
-        _isLoading = false;
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login Berhasil!')),
-      );
-    }
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const JulSplashScreen()),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
