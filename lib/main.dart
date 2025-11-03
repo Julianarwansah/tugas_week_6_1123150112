@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_week_6_1123150112/login/login.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 21, 185)),
       ),
       debugShowCheckedModeBanner: false,
+      home: const JulLogin(), // 👈 tambahkan ini
     );
   }
 }
