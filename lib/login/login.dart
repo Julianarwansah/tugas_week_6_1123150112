@@ -103,6 +103,29 @@ class _JulLoginState extends State<JulLogin> {
                     ? const CircularProgressIndicator(color: Colors.white)
                     : const Text("Login"),
               ),
+              const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Lupa Password')),
+                );
+              },
+              child: const Text("Lupa Password?"),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Belum punya akun?"),
+                TextButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Navigasi ke Daftar')),
+                    );
+                  },
+                  child: const Text("Daftar"),
+                ),
+              ],
+            ),
             ],
           ),
         ),
