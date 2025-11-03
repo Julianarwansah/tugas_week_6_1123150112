@@ -20,6 +20,14 @@ class _JulLoginState extends State<JulLogin> {
     super.dispose();
   }
 
+  void _validateForm() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Form valid!')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +65,11 @@ class _JulLoginState extends State<JulLogin> {
                     },
                   ),
                 ),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: _validateForm,
+                child: const Text("Login"),
               ),
             ],
           ),
